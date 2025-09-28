@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskriti Art Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #D2B48C; /* Tan background */
+            background-image: url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');
+        }
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        .header-bg {
+            background-color: #283550; /* Dark Blue */
+        }
+        .card-bg {
+             background-color: #3B4B70; /* Lighter Blue */
+        }
+        .home-btn-bg {
+            background-color: #F5E8C7;
+            color: #283550;
+        }
+        .header-nav a:not(.home-btn-bg) {
+             color: #F5E8C7;
+        }
+        .card-border {
+            border: 2px solid #F5E8C7;
+        }
+        .decorative-border {
+            border: 2px solid #F5E8C7;
+            padding: 1rem;
+            position: relative;
+        }
+        .decorative-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23F5E8C7'%3E%3Cpath d='M0 0 H50 A50 50 0 0 1 0 50 V0 Z'/%3E%3Cpath d='M20 20 H40 A20 20 0 0 1 20 40 V20 Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        /* Simple Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #3B4B70;
+            color: #F5E8C7;
+            margin: auto;
+            padding: 2rem;
+            border: 2px solid #F5E8C7;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .modal-close {
+            color: #F5E8C7;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .pagination a {
+            color: #283550;
+            background-color: #F5E8C7;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            margin: 0 0.25rem;
+            font-weight: 600;
+        }
+        .pagination a.active {
+            background-color: #C85A5A;
+            color: #F5E8C7;
+        }
+    </style>
+</head>
+<body class="text-white p-4 sm:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="header-bg rounded-lg shadow-lg p-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <svg class="h-10 w-10 mr-2 text-[#F5E8C7]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                <h1 class="text-2xl lg:text-3xl font-cinzel font-bold text-[#F5E8C7]">SANSKRITI</h1>
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-lg header-nav">
+                <a href="index.html" class="home-btn-bg px-4 py-2 rounded-md font-semibold">Home</a>
+                <a href="#" class="nav-link hover:text-yellow-300 transition duration-300" data-section="Dashboard">Dashboard</a>
+                <a href="#" class="nav-link hover:text-yellow-300 transition duration-300" data-section="About Us">About Us</a>
+                <a href="#" class="nav-link hover:text-yellow-300 transition duration-300" data-section="Notifications">Notifications</a>
+            </nav>
+            <div class="flex items-center">
+                <a href="#" id="profile-link" class="flex items-center text-[#F5E8C7] hover:text-yellow-300 transition duration-300">
+                    <svg class="h-8 w-8 rounded-full border-2 border-[#F5E8C7] p-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span class="hidden lg:inline ml-2 text-lg">Profile</span>
+                </a>
+                 <button class="md:hidden ml-4 text-[#F5E8C7]">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="card-bg mt-6 p-6 rounded-lg shadow-lg relative">
+            <div class="decorative-corner top-0 left-0"></div>
+            <div class="decorative-corner top-0 right-0 transform scale-x-[-1]"></div>
+            
+            <h2 class="text-3xl font-cinzel font-bold text-center text-[#F5E8C7] mb-6">THE SANSKRITI ART GALLERY</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Art Item 1 -->
+                <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://images.unsplash.com/photo-1629864222097-b120f2a40662?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chola Bronze Gallery" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">Chola Bronze Gallery (c. 11th Cent.)</p>
+                </div>
+                <!-- Art Item 2 -->
+                <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://placehold.co/400x300/C85A5A/FFFFFF?text=Madhubani+Art" alt="Bhagavad Gita" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">Bhagavad Gita pat the the Gita Life</p>
+                </div>
+                <!-- Art Item 3 -->
+                <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://images.unsplash.com/photo-1629631693121-a2a9c3d4e8e1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chola Bronze" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">Chola Bronze: Shires his toured the epic Maharkata</p>
+                </div>
+                 <!-- Art Item 4 -->
+                 <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://images.unsplash.com/photo-1629631693121-a2a9c3d4e8e1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Statue Art" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">Statue Art Nurdus (c. 11th Cent.)</p>
+                </div>
+                <!-- Art Item 5 -->
+                 <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://images.unsplash.com/photo-1582510214392-f02888939c32?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Madhwa Art" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">Madhwa Art: Bmycis the Life Life</p>
+                </div>
+                <!-- Art Item 6 -->
+                 <div class="bg-[#F5E8C7] rounded-lg shadow-md p-4 text-[#283550]">
+                    <img src="https://placehold.co/400x300/283550/FFFFFF?text=Temple+Art" alt="Mahabharata" class="rounded-md w-full h-48 object-cover">
+                    <p class="mt-2 font-semibold">epic Mahabharata</p>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center items-center pagination">
+                <a href="#" class="pagination-link">1</a>
+                <a href="#" class="pagination-link active">2</a>
+                <a href="#" class="pagination-link">3</a>
+                <a href="#" class="pagination-link">Next</a>
+            </div>
+
+            <div class="decorative-corner bottom-0 left-0 transform scale-y-[-1]"></div>
+            <div class="decorative-corner bottom-0 right-0 transform scale-x-[-1] scale-y-[-1]"></div>
+        </main>
+    </div>
+
+    <!-- Modal for Popups -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content relative">
+            <span id="modal-close-btn" class="modal-close">&times;</span>
+            <h2 id="modal-title" class="text-2xl font-cinzel font-bold mb-4">Section Clicked</h2>
+            <p id="modal-text">This section is under construction. Please check back later!</p>
+        </div>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('info-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const closeModalBtn = document.getElementById('modal-close-btn');
+
+        const showModal = (title) => {
+            modalTitle.textContent = title;
+            modal.style.display = 'flex';
+        };
+
+        const hideModal = () => {
+            modal.style.display = 'none';
+        };
+
+        closeModalBtn.addEventListener('click', hideModal);
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
+
+        document.getElementById('profile-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            showModal('Profile');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showModal(e.target.dataset.section);
+            });
+        });
+        
+        document.querySelectorAll('.pagination-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Remove active class from all
+                 document.querySelectorAll('.pagination-link').forEach(l => l.classList.remove('active'));
+                 // Add to clicked one
+                 e.target.classList.add('active');
+                 showModal(`Page ${e.target.textContent}`);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
